@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function index(User $user)
     {
-        return view('users.index', ['data' => $user->paginate(15)]);
+        return view('users.index', ['data' => $this->service->paginate(15)]);
     }
 
     public function create(){
@@ -49,7 +49,7 @@ class UserController extends Controller
 
         $user = $this->service->create(request()->all());
 
-        return view('user.index')
+        return redirect()->route('user.index')
             ->with([
                 'data' => $user->paginate(15),
                 'message' => 'Criado com sucesso',
@@ -75,7 +75,7 @@ class UserController extends Controller
         
         $user = $this->service->update(request()->all(),$user);
 
-        return view('users.index')
+        return redirect()->route('user.index')
             ->with([
                 'data' => $user->paginate(15),
                 'message' => 'Atualizado com sucesso',
@@ -88,7 +88,7 @@ class UserController extends Controller
 
         $user = $this->service->delete($user);
 
-        return view('users.index')
+        return redirect()->route('user.index')
             ->with([
                 'data' => $user->paginate(15),
                 'message' => 'Excluido com sucesso',

@@ -18,11 +18,10 @@ class JournalNewService
     private function buildQuery(User $user): Builder
     {
         $query = JournalNew::query();
-
+  
         $query->when(request('id'), function($query,$id){
             return $query->whereId($id);
         });
-
 
         if(request('title')){
             $query->when('title', function($query){
@@ -54,7 +53,8 @@ class JournalNewService
 
     public function update($data, JournalNew $journalNew): JournalNew 
     {
-        $journalNew->fill($data);
+        $journalNew->title = $data['title'];
+        $journalNew->text = $data['text'];
         $journalNew->save();
 
         return $journalNew;

@@ -15,6 +15,14 @@
                     </div>
                 </div>
             </div>
+
+            @if(isset($message) && isset($messageType) && $messageType == 's') 
+            <div class="alert alert-success">
+                <span>
+                <b></b>{{$message}}</span>
+            </div>
+            @endif
+
             <div class="card-body">
 
                 @if($data->count())    

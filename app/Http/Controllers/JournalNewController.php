@@ -31,10 +31,9 @@ class JournalNewController extends Controller
      */
     public function index($type,User $user)
     {
-        \Log::info($type);
+
         if($type == 'self'){
             $user = Auth::user();
-            \Log::info($user);
         }
 
         return view('journalnews.index', ['data' => $this->service->paginate(15,$user),
@@ -49,7 +48,7 @@ class JournalNewController extends Controller
      */
     public function create(User $user)
     {
-        \Log::info('Aqui');
+       
         $validatorRequest = new JournalNewStoreRequest();
         $validator = JsValidator::make($validatorRequest->rules(),$validatorRequest->messages());
 
@@ -71,13 +70,11 @@ class JournalNewController extends Controller
         
         $journalNew = $this->service->create(request()->all(),$user);
 
-        return view('journalnews.index')
+        return redirect()->route('journalnew.index',['type' => 'management','user' => $user])
             ->with([
                 'data' => $this->service->paginate(15,$user),
                 'message' => 'Noticia criada com sucesso',
                 'messageType' => 's',
-                'user' => $user,
-                'type' => 'management'
              ]);
     }
 
@@ -106,7 +103,8 @@ class JournalNewController extends Controller
         return view('journalnews.form')
         ->with([
             'validator' => $validator,
-            'journalNew' => $journalNew
+            'journalNew' => $journalNew,
+            'user' => $user
          ]);
     }
 
@@ -121,13 +119,11 @@ class JournalNewController extends Controller
     {
         $journalNew = $this->service->update(request()->all(),$journalNew,$user);
 
-        return view('journalnews.index')
+        return redirect()->route('journalnew.index',['type' => 'management','user' => $user])
             ->with([
                 'data' => $this->service->paginate(15,$user),
                 'message' => 'Atualizado com sucesso',
                 'messageType' => 's',
-                'user' => $user,
-                'type' => 'management'
              ]);
 
     }
@@ -143,13 +139,11 @@ class JournalNewController extends Controller
         
         $journalNew = $this->service->delete($journalNew);
 
-        return view('journalnews.index')
+        return redirect()->route('journalnew.index',['type' => 'management','user' => $user])
             ->with([
                 'data' => $this->service->paginate(15,$user),
                 'message' => 'Excluido com sucesso',
                 'messageType' => 's',
-                'user' => $user,
-                'type' => 'management'
              ]);
     }
 }

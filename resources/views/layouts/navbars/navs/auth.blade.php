@@ -76,10 +76,35 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="{{ __('SEARCH') }}">
+            @if($pageSlug == 'users')
+              <form method="get" action="{{ route('user.index') }}">
+               <input type="text" class="form-control" id="name" name="name" placeholder="name" value="{{ request('name') }}">
+               <input type="text" class="form-control" id="email" name="email" placeholder="email" value="{{ request('email') }}">
+                 <button type="submit" class="btn btn-sm btn-primary">
+                    Pesquisar
+                 </button>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('Close') }}">
+                     <i class="tim-icons icon-simple-remove"></i>
+                 </button>
+              </form>
+    
+            @elseif($pageSlug == 'journalNews')
+              <form method="get" action="{{ route('journalnew.index', ['type' => $type,'user' => $type == 'management' ? $user->id : null])}}">
+               <input type="text" class="form-control" id="title" name="title" placeholder="type" value="{{ request('title') }}">
+               <input type="text" class="form-control" id="text" name="text" placeholder="text" value="{{ request('text') }}">
+                  <button type="submit" class="btn btn-sm btn-primary">
+                    Pesquisar
+                 </button>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('Close') }}">
+                     <i class="tim-icons icon-simple-remove"></i>
+                 </button>
+              </form>
+    
+            @endif
+               <!--  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="{{ __('SEARCH') }}">
                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('Close') }}">
                     <i class="tim-icons icon-simple-remove"></i>
-              </button>
+                </button> -->
             </div>
         </div>
     </div>
