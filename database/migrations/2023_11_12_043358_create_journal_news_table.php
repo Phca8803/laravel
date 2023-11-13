@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('journal_news', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('title',50);
+            $table->string('text',300);
+            $table->timestamps(); 
+
         });
     }
 

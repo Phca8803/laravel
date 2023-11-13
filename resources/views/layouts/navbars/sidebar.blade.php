@@ -35,6 +35,12 @@
                     </ul>
                 </div>
             </li>
+            <li @if ($pageSlug == 'journalNews') class="active " @endif>
+                <a href="{{ route('journalnew.index',['type' => 'self'])}}">
+                    <i class="tim-icons icon-bullet-list-67"></i>
+                    <p>{{ __(' My News') }}</p>
+                </a>
+            </li>
             <!-- <li @if ($pageSlug == 'icons') class="active " @endif>
                 <a href="{{ route('pages.icons') }}">
                     <i class="tim-icons icon-atom"></i>

@@ -36,6 +36,15 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController');
+
+	Route::get('user/journalnew/{type}/{user?}', 'App\Http\Controllers\JournalNewController@index')->name('journalnew.index');
+	
+	Route::get('journalnew/{user}/create', 'App\Http\Controllers\JournalNewController@create')->name('journalnew.create');
+	Route::post('journalnew/{user}/store', 'App\Http\Controllers\JournalNewController@store')->name('journalnew.store');
+	Route::get('journalnew/{user}/{journalNew}/edit', 'App\Http\Controllers\JournalNewController@edit')->name('journalnew.edit');
+	Route::put('journalnew/{user}/{journalNew}', 'App\Http\Controllers\JournalNewController@update')->name('journalnew.update');
+	Route::delete('journalnew/{user}/{journalNew}', 'App\Http\Controllers\JournalNewController@destroy')->name('journalnew.destroy');
+
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);

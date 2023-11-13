@@ -47,7 +47,7 @@ class UserController extends Controller
 
     public function store(){
 
-        $this->service->create(request()->all());
+        $user = $this->service->create(request()->all());
 
         return view('user.index')
             ->with([
@@ -73,7 +73,7 @@ class UserController extends Controller
 
     public function update(User $user){
         
-        $this->service->update(request()->all(),$user);
+        $user = $this->service->update(request()->all(),$user);
 
         return view('users.index')
             ->with([
@@ -86,9 +86,7 @@ class UserController extends Controller
 
     public function destroy(User $user){
 
-        \Log::info('chegou aqui');
-
-        $this->service->delete($user);
+        $user = $this->service->delete($user);
 
         return view('users.index')
             ->with([
