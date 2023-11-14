@@ -61,6 +61,9 @@
                         </tbody>
                     </table>
                 </div>
+
+                @include('layouts.paginate')
+                
                 @else
                 
                 <div class="">

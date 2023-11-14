@@ -21,13 +21,13 @@
                             <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                 <label>Title</label>
                                 <input type="text" name="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" placeholder="Title" value="{{ old('title',(isset($journalNew) ? $journalNew->title : '' )) }}">
-                                @include('alerts.feedback', ['field' => 'name'])
+                                {!! $errors->first('title','<span class="help-block m-b-none">:message</span>') !!}
                             </div>
 
                             <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                                 <label>Text</label>
                                 <input type="textarea" name="text" class="form-control{{ $errors->has('text') ? ' is-invalid' : '' }}" placeholder="Text" value="{{ old('text', (isset($journalNew) ? $journalNew->text : '' )) }}">
-                                @include('alerts.feedback', ['field' => 'email'])
+                                {!! $errors->first('text','<span class="help-block m-b-none">:message</span>') !!}
                             </div>
 
                     </div>
@@ -38,4 +38,12 @@
             </div>
         </div>
     </div>
+
+    
+    @if(isset($journalNew))
+      {!! JsValidator::formRequest('App\Http\Requests\UserUpdateRequest') !!}
+    @else
+      {!! JsValidator::formRequest('App\Http\Requests\UserStoreRequest') !!}
+    @endif
+
 @endsection

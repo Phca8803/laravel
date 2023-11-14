@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Auth;
@@ -41,7 +42,7 @@ class UserService
     {
         $user = new User();
         $user->fill($data);
-
+        $user->password = Hash::make($data['password']);
         $user->save();
 
         return $user;
@@ -50,6 +51,7 @@ class UserService
     public function update($data, User $user): User 
     {
         $user->fill($data);
+        $user->password = Hash::make($data['password']); 
         $user->save();
 
         return $user;
